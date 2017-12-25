@@ -1,0 +1,30 @@
+#!/usr/bin/env ruby
+# encoding: utf-8
+
+class RandomString
+
+	ALPHANUMERIC_CLEAR_CHARSET = 'ABCDEFGHJKLMNPQRSTUVWXY3456789' # no confusing characters & numbers, 1(I,L),2(Z),0(O)
+	ALPHANUMERIC_CLEAR_LOWER_CHARSET = 'abcdefghjklmnpqrstuvwxy3456789'
+	ALPHANUMERIC_CLEAR_FULL_CHARSET = 'ABCDEFGHJKLMNPQRSTUVWXYabcdefghjklmnpqrstuvwxy3456789'
+
+	ALPHANUMERIC_CHARSET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+	ALPHANUMERIC_LOWER_CHARSET = 'abcdefghijklmnopqrstuvwxyz0123456789'
+	ALPHANUMERIC_FULL_CASE_CHARSET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+	ALPHABETIC_CHARSET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+	ALPHABETIC_LOWER_CHARSET = 'abcdefghijklmnopqrstuvwxyz'
+	ALPHABETIC_FULLCASE_CHARSET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
+
+	NUMERIC_CHARSET = '0123456789'
+
+	DEFAULT_CHARSET = ALPHANUMERIC_CLEAR_CHARSET
+
+	def self.random(len, charset = DEFAULT_CHARSET)
+		s = ''
+		cslen = charset.length
+		len.times do
+			s << charset[rand(cslen)]
+		end
+		s
+	end
+
+end

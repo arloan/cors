@@ -1,0 +1,38 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    cuba (3.9.0)
+      rack (>= 1.6.0)
+    cuba-sugar (0.3.1)
+      cuba (~> 3.3)
+      json (~> 1.7)
+      rack_csrf (~> 2.4)
+    daemons (1.2.5)
+    eventmachine (1.2.5)
+    httpi (2.4.2)
+      rack
+      socksify
+    json (1.8.6)
+    rack (2.0.3)
+    rack-protection (2.0.0)
+      rack
+    rack_csrf (2.6.0)
+      rack (>= 1.1.0)
+    socksify (1.7.1)
+    thin (1.7.2)
+      daemons (~> 1.0, >= 1.0.9)
+      eventmachine (~> 1.0, >= 1.0.4)
+      rack (>= 1, < 3)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  cuba
+  cuba-sugar
+  httpi
+  rack-protection
+  thin
+
+BUNDLED WITH
+   1.16.1
