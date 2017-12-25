@@ -93,6 +93,13 @@ Cuba.define do
       res.write '</pre>'
     end
 
-	end # on get
+  end # on get
+
+  on put do
+    on 'reload-config' do
+      Cuba.load_config
+      res.status = 204
+    end
+  end
 
 end # Cuba.define

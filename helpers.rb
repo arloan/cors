@@ -17,13 +17,18 @@ class Cuba
 	@app_redir_targets = {}
 	@allowed_origins = /^https?:\/\/localhost(?::\d+)?$|^https?:\/\/192\.168\.\d+\.\d+(?::\d+)?$/
 
+	CONF_KEY_URL = 'url'.freeze
+	CONF_KEY_TYPE = 'type'.freeze
+
 	class << self
+
 		attr_reader :app_redir_targets, :allowed_origins
+
 		def app_target(app, ver)
 			app = app.to_s
 			t = @app_redir_targets[app]
 			return nil if t.nil?
-			return t[:url] if t[:type] == TARGET_TYPE_ALWAYS
+			return t[CONF_KEY_URL] if t[CONF_KEY_TYPE].to_sym == TARGET_TYPE_ALWAYS
 
 			# url = 'https://itunes.apple.com/lookup?bundleId=com.ketchapp.2048'
 			url = 'https://itunes.apple.com/lookup?bundleId=' + app
@@ -37,14 +42,17 @@ class Cuba
 				ver_current = ver.to_f
 				# puts 'appstore version: ' + ver_appstore.to_s + ', current version: ' + ver_current.to_s
 				# puts 'app target: %s' % Cuba.app_target(app)
-				return t[:url] if ver_current <= ver_appstore
+				return t[CONF_KEY_URL] if ver_current <= ver_appstore
 			end
 		end # end of method app_target
 
 		def load_config
 			if File.exist?(AppConst::DEFAULT_CONFIG_PATH)
 				@app_config = YAML.load(IO.read(AppConst::DEFAULT_CONFIG_PATH))
-				@app_redir_targets = @app_config['redir targets'] || {}
+				app_targets = @app_config['redir targets']
+				@app_redir_targets = app_targets if app_targets and app_targets.is_a?(Hash)
+				allowed_origins = @app_config['allowed origins']
+				@allowed_origins = Regexp.new(allowed_origins) if allowed_origins and allowed_origins.is_a?(String)
 			end
 		rescue
 			$stderr.puts 'load_config failed: '

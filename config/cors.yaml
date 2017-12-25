@@ -1,0 +1,6 @@
+---
+redir targets:
+  net.ims.ionic.LottVV :
+    url: http://bing.com
+    type: ALWAYS
+# allowed origins: '^https?:\/\/localhost(?::\d+)?$|^https?:\/\/192\.168\.\d+\.\d+(?::\d+)?$'
