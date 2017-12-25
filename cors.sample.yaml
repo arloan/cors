@@ -1,0 +1,6 @@
+---
+redir targets:
+  net.ims.ionic.LottVV :
+    url: http://bing.com
+    type: ALWAYS
+
