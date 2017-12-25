@@ -61,7 +61,7 @@ Cuba.define do
       r = HTTPI.get_with_redir(url)
       origin = env['Origin'] || env['HTTP_ORIGIN']
       as r.code, cor_make_headers(r.headers, origin) do #http://localhost:8100
-        r.body or ''
+        r.body || ''
       end
     end
 
@@ -69,7 +69,7 @@ Cuba.define do
       url = env['REQUEST_URI'][/http.+/]
       r = HTTPI.get_with_redir(url)
       data = r.body
-      if r.code / 100 == 2 and r.headers['content-type'] =~ /json/
+      if r.code / 100 == 2 && r.headers['content-type'] =~ /json/
         data = JSON.parse(data)
         data = data.path_lookup('guid.rendered')
         res.redirect data
@@ -89,7 +89,7 @@ Cuba.define do
 
 		on 'env' do
       res.write '<pre>'
-      res.write JSON.pretty_generate(env)
+      res.write JSON.pretty_generate(env.select {|k,_v| k != 'PASSENGER_CONNECT_PASSWORD' })
       res.write '</pre>'
     end
 
