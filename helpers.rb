@@ -24,7 +24,7 @@ class Cuba
 
 		def app_target(app, ver)
 			app = app.to_s
-			t = @app_redir_targets[app]
+			t = lookup_app_redir_target(app)
 			return nil if t.nil? || t[RedirTargetKeyName::TYPE] == RedirTargetType::NEVER
 			return t[RedirTargetKeyName::URL] if t[RedirTargetKeyName::TYPE] == RedirTargetType::ALWAYS
 
