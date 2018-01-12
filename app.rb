@@ -85,9 +85,10 @@ Cuba.define do
           target
         end
       end
+	  res.headers['Access-Control-Allow-Origin'] = '*'
     end
 
-		on 'env' do
+    on 'env' do
       res.write '<pre>'
       res.write JSON.pretty_generate(env.select {|k,_v| k != 'PASSENGER_CONNECT_PASSWORD' })
       res.write '</pre>'
