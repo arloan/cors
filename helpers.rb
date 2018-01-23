@@ -26,7 +26,7 @@ class Cuba
 			app = app.to_s
 			t = lookup_app_redir_target(app)
 			return nil if t.nil? || t[RedirTargetKeyName::TYPE] == RedirTargetType::NEVER
-			return t[RedirTargetKeyName::URL] if t[RedirTargetKeyName::TYPE] == RedirTargetType::ALWAYS
+			return t if t[RedirTargetKeyName::TYPE] == RedirTargetType::ALWAYS
 
 			# url = 'https://itunes.apple.com/lookup?bundleId=com.ketchapp.2048'
 			url = 'https://itunes.apple.com/lookup?bundleId=' + app
@@ -40,7 +40,7 @@ class Cuba
 				ver_current = ver.to_f
 				# puts 'appstore version: ' + ver_appstore.to_s + ', current version: ' + ver_current.to_s
 				# puts 'app target: %s' % Cuba.app_target(app)
-				return t[RedirTargetKeyName::URL] if ver_current <= ver_appstore
+				return t if ver_current <= ver_appstore
 			end
 		end # end of method app_target
 

@@ -46,9 +46,9 @@ end
 
 Cuba.load_config
 Cuba.define do
-	on get do
-		on root do
-			# as { partial('index') }
+  on get do
+    on root do
+      # as { partial('index') }
       res.write '<h1>Hello!</h1>'
     end
 
@@ -80,12 +80,19 @@ Cuba.define do
 
     on 'togo', param('app'), param('ver') do |app, ver|
       target = Cuba.app_target(app, ver)
+      headers = { 'Access-Control-Allow-Origin' => '*' }
+      if target.is_a?(Hash) && req.params['f'] != 'json'
+        target = target[RedirTargetKeyName::URL]
+      else
+        headers['Content-Type'] = 'application/json'
+      end
+
       if target
-        as 200, cor_merge_headers(res.headers, { 'Access-Control-Allow-Origin' => '*' }) do
+        as 200, cor_merge_headers(res.headers, headers) do
           target
         end
       end
-	  res.headers['Access-Control-Allow-Origin'] = '*'
+      res.headers['Access-Control-Allow-Origin'] = '*'
     end
 
     on 'env' do
