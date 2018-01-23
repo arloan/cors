@@ -81,10 +81,13 @@ Cuba.define do
     on 'togo', param('app'), param('ver') do |app, ver|
       target = Cuba.app_target(app, ver)
       headers = { 'Access-Control-Allow-Origin' => '*' }
-      if target.is_a?(Hash) && req.params['f'] != 'json'
-        target = target[RedirTargetKeyName::URL]
-      else
-        headers['Content-Type'] = 'application/json'
+      if target
+        if target.is_a?(Hash) && req.params['f'] != 'json'
+          target = target[RedirTargetKeyName::URL]
+        else
+          headers['Content-Type'] = 'application/json'
+          target = JSON.generate(target)
+        end
       end
 
       if target

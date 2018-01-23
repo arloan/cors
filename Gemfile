@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem 'httpi'
 gem 'cuba'
-#gem 'json'
+gem 'json'
 #gem 'sequel'
 gem 'rack-protection', :require => 'rack/protection'
 gem 'cuba-sugar', :require => false
